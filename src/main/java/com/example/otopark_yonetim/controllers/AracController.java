@@ -3,6 +3,7 @@ package com.example.otopark_yonetim.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,6 +51,12 @@ public class AracController {
 		AracService aracService = getAracService(serviceName);
 		aracService.aracCikisYapti(id);
 		return ResponseEntity.status(200).body("Arac cikis yapti");
+	}
+
+	@GetMapping("/fiyatHesapla/{serviceName}")
+	public double fiyatHesapla(@PathVariable String serviceName, @RequestParam Long id) {
+		AracService aracService = getAracService(serviceName);
+		return aracService.fiyatHesapla(id);
 	}
 
 	private AracService getAracService(String serviceName) {

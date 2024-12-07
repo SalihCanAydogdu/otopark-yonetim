@@ -1,8 +1,13 @@
 package com.example.otopark_yonetim.services;
 
+import java.time.LocalDateTime;
+
 import org.springframework.stereotype.Service;
 
+import com.example.otopark_yonetim.entities.Arac;
 import com.example.otopark_yonetim.repositories.AracRepository;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class HafifTicariAracService extends AracService {
@@ -13,8 +18,12 @@ public class HafifTicariAracService extends AracService {
 	}
 
 	@Override
-	public double fiyatHesapla() {
-		return 12.2;
-	}
+	public double fiyatHesapla(Long id) {
 
+		Arac arac = aracRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Entity not found"));
+		LocalDateTime aracinGirisVakti = arac.getGirisSaati();
+		LocalDateTime aracinCikisSaati = arac.getCikisSaati();
+		return fiyatFormatter(35 + (hesaplaDakikaFarki(aracinGirisVakti, aracinCikisSaati) * 1.70));
+
+	}
 }
