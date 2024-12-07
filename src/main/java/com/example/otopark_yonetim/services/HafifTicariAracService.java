@@ -13,7 +13,8 @@ public class HafifTicariAracService extends AracService {
 	}
 
 	@Override
-	public void fiyatHesapla() {
+	public double fiyatHesapla() {
+		return 12.2;
 	}
 
 }

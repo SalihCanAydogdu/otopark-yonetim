@@ -3,6 +3,7 @@ package com.example.otopark_yonetim.services;
 import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.otopark_yonetim.entities.Arac;
 import com.example.otopark_yonetim.repositories.AracRepository;
@@ -10,16 +11,17 @@ import com.example.otopark_yonetim.repositories.AracRepository;
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
+@Transactional
 public abstract class AracService {
 
-	private AracRepository aracRepository;
+	protected AracRepository aracRepository;
 
 	public AracService(AracRepository aracRepository) {
 		super();
 		this.aracRepository = aracRepository;
 	}
 
-	public abstract void fiyatHesapla();
+	public abstract double fiyatHesapla();
 
 	public Arac aracGirisYapti(String plaka) {
 		Arac arac = Arac.builder().plaka(plaka).girisSaati(LocalDateTime.now()).cikisSaati(null).build();
@@ -28,13 +30,13 @@ public abstract class AracService {
 	}
 
 	public Arac aracCikisYapti(Long id) {
+		Arac arac = aracRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Entity Not Found"));
 
-		Arac cikisYapanArac = aracRepository.findById(id)
-				.orElseThrow(() -> new EntityNotFoundException("Entity Not Found"));
+		arac.setCikisSaati(LocalDateTime.now());
 
-		cikisYapanArac.setCikisSaati(LocalDateTime.now());
-		return cikisYapanArac;
+		Arac savedArac = aracRepository.save(arac);
 
+		return aracRepository.save(savedArac);
 	}
 
 }

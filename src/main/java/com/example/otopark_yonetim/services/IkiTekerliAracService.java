@@ -13,8 +13,9 @@ public class IkiTekerliAracService extends AracService {
 	}
 
 	@Override
-	public void fiyatHesapla() {
+	public double fiyatHesapla() {
 		// TODO Auto-generated method stub
+		return 12.2;
 
 	}
 

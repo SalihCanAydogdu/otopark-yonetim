@@ -27,13 +27,14 @@ public class Arac {
 	private Long id;
 
 	@Size(max = 20)
+	@Column(nullable = false, updatable = true)
 	private String plaka;
 
 	@Column(nullable = false, updatable = false)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime girisSaati;
 
-	@Column(nullable = true, updatable = false)
+	@Column(nullable = true, updatable = true)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime cikisSaati;
 

@@ -46,10 +46,10 @@ public class AracController {
 	}
 
 	@PostMapping("/cikisYapti/{serviceName}")
-	public ResponseEntity<Arac> cikisYapti(@PathVariable String serviceName, @RequestParam Long id) {
+	public ResponseEntity<Object> cikisYapti(@PathVariable String serviceName, @RequestParam Long id) {
 		AracService aracService = getAracService(serviceName);
-		Arac cikisYapanArac = aracService.aracCikisYapti(id);
-		return ResponseEntity.status(200).body(cikisYapanArac);
+		aracService.aracCikisYapti(id);
+		return ResponseEntity.status(200).body("Arac cikis yapti");
 	}
 
 	private AracService getAracService(String serviceName) {
