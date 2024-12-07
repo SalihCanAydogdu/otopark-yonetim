@@ -7,5 +7,5 @@ import com.example.otopark_yonetim.entities.Arac;
 
 @Repository
 public interface AracRepository extends JpaRepository<Arac,Long> {
-
+	  long countByPlakaIgnoreCase(String plaka);
 }

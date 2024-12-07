@@ -23,7 +23,7 @@ public class HafifTicariAracService extends AracService {
 		Arac arac = aracRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Entity not found"));
 		LocalDateTime aracinGirisVakti = arac.getGirisSaati();
 		LocalDateTime aracinCikisSaati = arac.getCikisSaati();
-		return fiyatFormatter(35 + (hesaplaDakikaFarki(aracinGirisVakti, aracinCikisSaati) * 1.70));
+		return 35 + (hesaplaDakikaFarki(aracinGirisVakti, aracinCikisSaati) * 1.70);
 
 	}
 }

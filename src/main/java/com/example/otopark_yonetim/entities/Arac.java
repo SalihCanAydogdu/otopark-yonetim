@@ -27,8 +27,9 @@ public class Arac {
 	private Long id;
 
 	@Size(max = 20)
-	@Column(nullable = false, updatable = true)
+	@Column(nullable = false, updatable = true, columnDefinition = "VARCHAR(20) COLLATE utf8mb4_general_ci")
 	private String plaka;
+
 
 	@Column(nullable = false, updatable = false)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")

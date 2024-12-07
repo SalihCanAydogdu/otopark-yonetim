@@ -23,7 +23,7 @@ public class OtomobilService extends AracService {
 		Arac arac = aracRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Entity not found"));
 		LocalDateTime aracinGirisVakti = arac.getGirisSaati();
 		LocalDateTime aracinCikisSaati = arac.getCikisSaati();
-		return fiyatFormatter(20 + (hesaplaDakikaFarki(aracinGirisVakti, aracinCikisSaati) * 1.25));
+		return 20 + (hesaplaDakikaFarki(aracinGirisVakti, aracinCikisSaati) * 1.25);
 
 	}
 

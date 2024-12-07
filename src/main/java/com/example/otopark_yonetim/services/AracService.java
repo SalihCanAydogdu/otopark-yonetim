@@ -9,6 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.otopark_yonetim.entities.Arac;
 import com.example.otopark_yonetim.repositories.AracRepository;
+import com.example.otopark_yonetim.state.DiscountState;
+import com.example.otopark_yonetim.state.FiveToTwentyNineDiscountState;
+import com.example.otopark_yonetim.state.NoDiscountState;
+import com.example.otopark_yonetim.state.ThirtyPlusDiscountState;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -54,8 +58,30 @@ public abstract class AracService {
 	}
 
 	public double fiyatFormatter(double fiyat) {
-		DecimalFormat df = new DecimalFormat("#,###.##",DecimalFormatSymbols.getInstance(Locale.US));
+		DecimalFormat df = new DecimalFormat("#,###.##", DecimalFormatSymbols.getInstance(Locale.US));
 		return Double.parseDouble(df.format(fiyat));
+	}
+
+	public double handleAracDiscount(String plaka) {
+		// Plaka numarasına göre aracın kaydedilme sayısını al
+		long girisSayisi = aracRepository.countByPlakaIgnoreCase(plaka);
+
+		// Durum sınıfı oluştur
+		DiscountState currentState;
+
+		// Durum geçişi kontrolü
+		if (girisSayisi < 5) {
+			currentState = new NoDiscountState();
+		} else if (girisSayisi < 30) {
+			currentState = new FiveToTwentyNineDiscountState();
+		} else {
+			currentState = new ThirtyPlusDiscountState();
+		}
+
+		// İndirim oranini ayarla
+		double discount = currentState.handleDiscount();
+
+		return discount;
 	}
 
 }
