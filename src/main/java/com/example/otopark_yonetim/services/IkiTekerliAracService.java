@@ -2,14 +2,10 @@ package com.example.otopark_yonetim.services;
 
 import org.springframework.stereotype.Service;
 
-import com.example.otopark_yonetim.security.repository.AracRepository;
-
-
+import com.example.otopark_yonetim.repositories.AracRepository;
 
 @Service
-public class IkiTekerliAracService extends AracService{
-
-
+public class IkiTekerliAracService extends AracService {
 
 	public IkiTekerliAracService(AracRepository aracRepository) {
 		super(aracRepository);
@@ -21,7 +17,5 @@ public class IkiTekerliAracService extends AracService{
 		// TODO Auto-generated method stub
 
 	}
-
-
 
 }

@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import org.springframework.stereotype.Service;
 
 import com.example.otopark_yonetim.entities.Arac;
-import com.example.otopark_yonetim.security.repository.AracRepository;
+import com.example.otopark_yonetim.repositories.AracRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 

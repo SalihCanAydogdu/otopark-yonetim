@@ -2,11 +2,10 @@ package com.example.otopark_yonetim.services;
 
 import org.springframework.stereotype.Service;
 
-import com.example.otopark_yonetim.security.repository.AracRepository;
-
+import com.example.otopark_yonetim.repositories.AracRepository;
 
 @Service
-public class AgirTicariAracService extends AracService{
+public class AgirTicariAracService extends AracService {
 
 	public AgirTicariAracService(AracRepository aracRepository) {
 		super(aracRepository);
@@ -14,6 +13,7 @@ public class AgirTicariAracService extends AracService{
 	}
 
 	@Override
-	public void fiyatHesapla() {}
+	public void fiyatHesapla() {
+	}
 
 }
