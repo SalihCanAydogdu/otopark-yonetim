@@ -1,8 +1,9 @@
-package com.example.otopark_yonetim.security.services;
+package com.example.otopark_yonetim.services;
 
 import org.springframework.stereotype.Service;
 
 import com.example.otopark_yonetim.security.repository.AracRepository;
+
 
 @Service
 public class AgirTicariAracService extends AracService{

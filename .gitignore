@@ -25,3 +25,4 @@ replay_pid*
 
 # Application properties
 application.properties
+/target/
