@@ -32,8 +32,9 @@ public abstract class AracService {
 
 	public abstract double fiyatHesapla(Long id);
 
-	public Arac aracGirisYapti(String plaka) {
-		Arac arac = Arac.builder().plaka(plaka).girisSaati(LocalDateTime.now()).cikisSaati(null).build();
+	public Arac aracGirisYapti(String plaka, String aracTuru) {
+		Arac arac = Arac.builder().plaka(plaka).aracTuru(aracTuru).girisSaati(LocalDateTime.now()).cikisSaati(null)
+				.build();
 
 		return aracRepository.save(arac);
 	}

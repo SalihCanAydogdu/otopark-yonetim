@@ -30,6 +30,9 @@ public class Arac {
 	@Column(nullable = false, updatable = true, columnDefinition = "VARCHAR(20) COLLATE utf8mb4_general_ci")
 	private String plaka;
 
+	@Size(max = 25)
+	@Column(nullable = false, updatable = true)
+	private String aracTuru;
 
 	@Column(nullable = false, updatable = false)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
