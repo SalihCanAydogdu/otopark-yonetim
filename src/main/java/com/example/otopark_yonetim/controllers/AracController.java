@@ -1,5 +1,7 @@
 package com.example.otopark_yonetim.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.otopark_yonetim.entities.Arac;
 import com.example.otopark_yonetim.services.AracService;
+import com.example.otopark_yonetim.services.AracServiceImp;
+import com.example.otopark_yonetim_responses.AracResponse;
 
 @RestController
 @RequestMapping("/api/arac")
@@ -22,16 +26,18 @@ public class AracController {
 	private final AracService otomobilService;
 	private final AracService hafifTicariAracService;
 	private final AracService agirTicariAracService;
+	private final AracServiceImp aracServiceImp;
 
 	@Autowired
 	public AracController(@Qualifier("ikiTekerliAracService") AracService ikiTekerliAracService,
 			@Qualifier("otomobilService") AracService otomobilService,
 			@Qualifier("hafifTicariAracService") AracService hafifTicariAracService,
-			@Qualifier("agirTicariAracService") AracService agirTicariAracService) {
+			@Qualifier("agirTicariAracService") AracService agirTicariAracService, AracServiceImp aracServiceImp) {
 		this.ikiTekerliAracService = ikiTekerliAracService;
 		this.otomobilService = otomobilService;
 		this.hafifTicariAracService = hafifTicariAracService;
 		this.agirTicariAracService = agirTicariAracService;
+		this.aracServiceImp = aracServiceImp;
 
 	}
 
@@ -68,12 +74,11 @@ public class AracController {
 		return aracService.fiyatFormatter(((100 - aracService.handleAracDiscount(plaka)) / 100) * kullanimTutari);
 	}
 
-	/*
-	 * @GetMapping("/otoparktakiAraclar") public List<AracResponse>
-	 * otoparktakiAaraclar() {
-	 * 
-	 * }
-	 */
+	@GetMapping("/otoparktakiAraclar")
+	public List<AracResponse> otoparktakiAraclar() {
+		return aracServiceImp.isCikisSaatiNull();
+	}
+
 	private AracService getAracService(String serviceName) {
 		switch (serviceName) {
 		case "IkiTekerliArac":
