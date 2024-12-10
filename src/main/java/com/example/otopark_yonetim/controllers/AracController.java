@@ -41,23 +41,21 @@ public class AracController {
 
 	}
 
-	@PostMapping("/girisYapti/{serviceName}")
-	public ResponseEntity<Object> girisYapti(@PathVariable String serviceName, @RequestParam String plaka,
-			@RequestParam String aracTuru) {
-		AracService aracService = getAracService(serviceName);
+	@PostMapping("/girisYapti")
+	public ResponseEntity<Object> girisYapti(@RequestParam String plaka, @RequestParam String aracTuru) {
 		if (plaka == null || plaka.trim().isEmpty()) {
 			return ResponseEntity.badRequest().body("Plaka boş olamaz!");
 		}
 
 		// Yeni araç oluştur ve kaydet
-		Arac yeniArac = aracService.aracGirisYapti(plaka, aracTuru);
+		Arac yeniArac = aracServiceImp.aracGirisYapti(plaka, aracTuru);
 		return ResponseEntity.status(201).body(yeniArac);
 	}
 
-	@PostMapping("/cikisYapti/{serviceName}")
-	public ResponseEntity<Object> cikisYapti(@PathVariable String serviceName, @RequestParam Long id) {
-		AracService aracService = getAracService(serviceName);
-		aracService.aracCikisYapti(id);
+	@PostMapping("/cikisYapti")
+	public ResponseEntity<Object> cikisYapti(@RequestParam Long id) {
+
+		aracServiceImp.aracCikisYapti(id);
 		return ResponseEntity.status(200).body("Arac cikis yapti");
 	}
 
@@ -67,6 +65,7 @@ public class AracController {
 		return aracService.fiyatFormatter(aracService.fiyatHesapla(id));
 	}
 
+	// indirimli fiyati gosteren controller
 	@GetMapping("/indirimHesapla/{serviceName}")
 	public double indirimHesapla(@PathVariable String serviceName, @RequestParam Long id, @RequestParam String plaka) {
 		AracService aracService = getAracService(serviceName);
