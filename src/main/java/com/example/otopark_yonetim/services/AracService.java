@@ -2,7 +2,9 @@ package com.example.otopark_yonetim.services;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +15,7 @@ import com.example.otopark_yonetim.state.DiscountState;
 import com.example.otopark_yonetim.state.FiveToTwentyNineDiscountState;
 import com.example.otopark_yonetim.state.NoDiscountState;
 import com.example.otopark_yonetim.state.ThirtyPlusDiscountState;
+import com.example.otopark_yonetim_responses.AracResponse;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -83,6 +86,13 @@ public abstract class AracService {
 		double discount = currentState.handleDiscount();
 
 		return discount;
+	}
+
+	public List<AracResponse> isCikisSaatiNull() {
+		return aracRepository.findByCikisSaatiIsNull().stream()
+				.map(arac -> new AracResponse(arac.getId(), arac.getPlaka(), arac.getAracTuru(), arac.getGirisSaati()))
+				.collect(Collectors.toList());
+
 	}
 
 }

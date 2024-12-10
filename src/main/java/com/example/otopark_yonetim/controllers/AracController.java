@@ -32,6 +32,7 @@ public class AracController {
 		this.otomobilService = otomobilService;
 		this.hafifTicariAracService = hafifTicariAracService;
 		this.agirTicariAracService = agirTicariAracService;
+
 	}
 
 	@PostMapping("/girisYapti/{serviceName}")
@@ -67,6 +68,12 @@ public class AracController {
 		return aracService.fiyatFormatter(((100 - aracService.handleAracDiscount(plaka)) / 100) * kullanimTutari);
 	}
 
+	/*
+	 * @GetMapping("/otoparktakiAraclar") public List<AracResponse>
+	 * otoparktakiAaraclar() {
+	 * 
+	 * }
+	 */
 	private AracService getAracService(String serviceName) {
 		switch (serviceName) {
 		case "IkiTekerliArac":
