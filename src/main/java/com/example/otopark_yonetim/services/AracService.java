@@ -2,6 +2,7 @@ package com.example.otopark_yonetim.services;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -66,6 +67,13 @@ public abstract class AracService {
 		return Double.parseDouble(df.format(fiyat));
 	}
 
+	public static String formatToTurkish(LocalDateTime dateTime) {
+		// Türk formatı için DateTimeFormatter
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH.mm");
+		// Formatlama ve sonucu döndürme
+		return dateTime.format(formatter);
+	}
+
 	public double handleAracDiscount(String plaka) {
 		// Plaka numarasına göre aracın kaydedilme sayısını al
 		long girisSayisi = aracRepository.countByPlakaIgnoreCase(plaka);
@@ -89,8 +97,9 @@ public abstract class AracService {
 	}
 
 	public List<AracResponse> isCikisSaatiNull() {
-		return aracRepository.findByCikisSaatiIsNull().stream()
-				.map(arac -> new AracResponse(arac.getId(), arac.getPlaka(), arac.getAracTuru(), arac.getGirisSaati()))
+		return aracRepository
+				.findByCikisSaatiIsNull().stream().map(arac -> new AracResponse(arac.getId(), arac.getAracTuru(),
+						arac.getPlaka(), AracService.formatToTurkish(arac.getGirisSaati())))
 				.collect(Collectors.toList());
 
 	}
