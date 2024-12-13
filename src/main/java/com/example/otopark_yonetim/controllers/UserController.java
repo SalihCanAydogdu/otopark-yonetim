@@ -29,10 +29,6 @@ public class UserController {
 		this.userService = userService;
 	}
 
-	// @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
-	// You can use Preauthorize to distribute roles according to the needs of your
-	// project.
-
 	@GetMapping
 	public List<UserResponse> getAllUsers() {
 		return userService.getAllUsers().stream().map(u -> new UserResponse(u)).toList();
@@ -54,20 +50,10 @@ public class UserController {
 
 	}
 
-	@PostMapping("/{userId}/moderator")
-	public ResponseEntity<String> addUserModerator(@PathVariable Long userId) {
-		try {
-			userService.addUserRole(userId, 2); // Adding 2 as a role //For moderator authority
-			return ResponseEntity.ok("Moderator role added successfully.");
-		} catch (Exception e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
-		}
-	}
-
 	@PostMapping("/{userId}/admin")
 	public ResponseEntity<String> addUserAdmin(@PathVariable Long userId) {
 		try {
-			userService.addUserRole(userId, 3); // Adding 3 as a role //For Admin authority
+			userService.addUserRole(userId, 2); // Adding 2 as a role //For Admin authority
 			return ResponseEntity.ok("Admin role added successfully.");
 		} catch (Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
