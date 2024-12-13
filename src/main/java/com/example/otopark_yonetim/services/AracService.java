@@ -38,12 +38,12 @@ public abstract class AracService {
 
 	public Arac aracGirisYapti(String plaka, String aracTuru) {
 		Arac arac = Arac.builder().plaka(plaka).aracTuru(aracTuru).girisSaati(LocalDateTime.now()).cikisSaati(null)
-				.build();
+				.icerde(true).build();
 
 		return aracRepository.save(arac);
 	}
 
-	public Arac aracCikisYapti(Long id) {
+	public Arac aracCikisSaatiSet(Long id) {
 		Arac arac = aracRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Entity Not Found"));
 
 		arac.setCikisSaati(LocalDateTime.now());
@@ -96,12 +96,28 @@ public abstract class AracService {
 		return discount;
 	}
 
-	public List<AracResponse> isCikisSaatiNull() {
+	/*
+	 * public List<AracResponse> isCikisSaatiNull() { return aracRepository
+	 * .findByCikisSaatiIsNull().stream().map(arac -> new AracResponse(arac.getId(),
+	 * arac.getAracTuru(), arac.getPlaka(),
+	 * AracService.formatToTurkish(arac.getGirisSaati())))
+	 * .collect(Collectors.toList());
+	 * 
+	 * }
+	 */
+
+	public List<AracResponse> isIcerdeTrue() {
 		return aracRepository
-				.findByCikisSaatiIsNull().stream().map(arac -> new AracResponse(arac.getId(), arac.getAracTuru(),
+				.findByIcerdeIsTrue().stream().map(arac -> new AracResponse(arac.getId(), arac.getAracTuru(),
 						arac.getPlaka(), AracService.formatToTurkish(arac.getGirisSaati())))
 				.collect(Collectors.toList());
+	}
 
+	public Arac aracCikisYapti(long id) {
+		Arac arac = aracRepository.findById(id)
+				.orElseThrow(() -> new EntityNotFoundException("Entity could not be found"));
+		arac.setIcerde(false);
+		return aracRepository.save(arac);
 	}
 
 }

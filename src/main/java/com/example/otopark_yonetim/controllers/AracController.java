@@ -52,16 +52,15 @@ public class AracController {
 		return ResponseEntity.status(201).body(yeniArac);
 	}
 
-	@PostMapping("/cikisYapti")
-	public ResponseEntity<Object> cikisYapti(@RequestParam Long id) {
-
-		aracServiceImp.aracCikisYapti(id);
-		return ResponseEntity.status(200).body("Arac cikis yapti");
+	@GetMapping("/otoparktakiAraclar")
+	public List<AracResponse> otoparktakiAraclar() {
+		return aracServiceImp.isIcerdeTrue();
 	}
 
 	@GetMapping("/fiyatHesapla/{serviceName}")
 	public String fiyatHesapla(@PathVariable String serviceName, @RequestParam Long id) {
 		AracService aracService = getAracService(serviceName);
+		aracService.aracCikisSaatiSet(id);
 		return aracService.fiyatFormatter(aracService.fiyatHesapla(id));
 	}
 
@@ -73,9 +72,11 @@ public class AracController {
 		return aracService.fiyatFormatter(((100 - aracService.handleAracDiscount(plaka)) / 100) * kullanimTutari);
 	}
 
-	@GetMapping("/otoparktakiAraclar")
-	public List<AracResponse> otoparktakiAraclar() {
-		return aracServiceImp.isCikisSaatiNull();
+	@PostMapping("/cikisYapti")
+	public ResponseEntity<Object> cikisYapti(@RequestParam Long id) {
+
+		aracServiceImp.aracCikisYapti(id);
+		return ResponseEntity.status(200).body("Arac cikis yapti");
 	}
 
 	private AracService getAracService(String serviceName) {
