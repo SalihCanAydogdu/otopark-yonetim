@@ -60,14 +60,14 @@ public class AracController {
 	}
 
 	@GetMapping("/fiyatHesapla/{serviceName}")
-	public double fiyatHesapla(@PathVariable String serviceName, @RequestParam Long id) {
+	public String fiyatHesapla(@PathVariable String serviceName, @RequestParam Long id) {
 		AracService aracService = getAracService(serviceName);
 		return aracService.fiyatFormatter(aracService.fiyatHesapla(id));
 	}
 
 	// indirimli fiyati gosteren controller
 	@GetMapping("/indirimHesapla/{serviceName}")
-	public double indirimHesapla(@PathVariable String serviceName, @RequestParam Long id, @RequestParam String plaka) {
+	public String indirimHesapla(@PathVariable String serviceName, @RequestParam Long id, @RequestParam String plaka) {
 		AracService aracService = getAracService(serviceName);
 		double kullanimTutari = aracService.fiyatHesapla(id);
 		return aracService.fiyatFormatter(((100 - aracService.handleAracDiscount(plaka)) / 100) * kullanimTutari);

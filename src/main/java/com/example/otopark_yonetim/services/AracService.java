@@ -62,9 +62,9 @@ public abstract class AracService {
 		return fark.toMillis() / 60000.0; // Millisaniyeden dakikaya çevirirken double döndürüyoruz
 	}
 
-	public double fiyatFormatter(double fiyat) {
+	public String fiyatFormatter(double fiyat) {
 		DecimalFormat df = new DecimalFormat("#,###.##", DecimalFormatSymbols.getInstance(Locale.US));
-		return Double.parseDouble(df.format(fiyat));
+		return df.format(fiyat);
 	}
 
 	public static String formatToTurkish(LocalDateTime dateTime) {
