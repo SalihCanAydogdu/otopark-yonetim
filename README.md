@@ -1,4 +1,44 @@
-# Otopark Yönetimi
+# Tasarım Desenleri Ve Optimize Edilmiş Yazılım Mimarisi(Otopark Yönetim Sistemi)  
+
+## Proje Hakkında  
+Bu proje, yazılım tasarım desenlerini kullanarak modüler, esnek ve yeniden kullanılabilir bir mimari oluşturmayı amaçlamaktadır. Yazılım geliştirme sürecinde yaygın olarak kullanılan **Singleton**, **Factory Method**, **Builder**, **State** ve **DTO** tasarım desenleri, proje kapsamındaki ana bileşenlerde etkili bir şekilde uygulanmıştır.  
+
+## Kullanılan Tasarım Desenleri  
+
+### 1. **Singleton Design Pattern**  
+- **Amaç**: Bir sınıfın yalnızca bir örneğinin oluşturulmasını sağlamak ve bu örneği global bir erişim noktası üzerinden yönetmek.  
+- **Projedeki Uygulama**:  
+  - Spring Framework, @Service, @Component, @Repository gibi anotasyonlar ile işaretlenmiş sınıfları varsayılan olarak singleton olarak yönetir. Bu, sınıfın yalnızca bir örneğinin Spring IoC (Inversion of Control) konteyneri tarafından yaratılacağı anlamına gelir. Böylece, her bir sınıf için yalnızca bir nesne oluşturulur ve bu nesne, uygulama boyunca kullanılır. Ancak EmailService classında bu durum manuel olarak ele alınmıştır. Bu durumda, sınıfın örneğini daha sıkı bir şekilde kontrol etmek amacından meydana gelmiştir.
+
+### 2. **Factory Method Design Pattern**  
+- **Amaç**: Alt sınıfların hangi sınıf örneğini oluşturacağını belirlemesine olanak tanımak ve nesne oluşturma sürecini soyutlamak.  
+- **Projedeki Uygulama**:  
+  - Factory Design Pattern, bu projede farklı araç servislerine ait nesnelerin oluşturulması ve istemciye sağlanmasında kullanılmıştır. Bu desenin sağladığı merkezi nesne yönetimi, kodun bakımını ve genişletilmesini kolaylaştırır. İstemci kodunun hangi tür servis gerektiğini belirtmesi yeterli olur, servislerin nasıl oluşturulacağı ise AracServiceFactory tarafından yönetilir.  
+
+### 3. **Builder Design Pattern**  
+- **Amaç**: Karmaşık nesnelerin adım adım oluşturulmasını sağlamak ve oluşturma sürecini kontrol etmek.  
+- **Projedeki Uygulama**:  
+  - Bu projede Builder Design Pattern, Arac nesnesinin oluşturulmasında kullanılmıştır.  
+
+### 4. **State Design Pattern**  
+- **Amaç**: Nesnelerin durumlarına bağlı olarak davranışlarını değiştirebilmek.  
+- **Projedeki Uygulama**:  
+  - Bu projede faturaya uygulanması gereken indirim miktarının belirlenmesi amacıyla kullanılmıştır. 
+
+### 5. **Data Transfer Object (DTO) Design Pattern**  
+- **Amaç**: Verilerin uygulamanın farklı katmanları arasında taşınmasını kolaylaştırmak ve veri taşımayı optimize etmek.  
+- **Projedeki Uygulama**:  
+  - AracResponse, Arac nesnesinin kullanıcıya veya başka bir katmana uygun bir şekilde aktarılmasını sağlamak için kullanılan bir DTO'dur.
+Bu DTO, Arac nesnesinin yalnızca belirli özelliklerini içerir ve servis katmanından controller katmanına veri transferi için kullanılmıştır.  
+
+## Projenin Avantajları  
+- **Yeniden Kullanılabilirlik**: Tasarım desenleri sayesinde, kodun belirli parçaları birden fazla bağlamda kullanılabilir.  
+- **Modülerlik**: Kod daha küçük ve yönetilebilir birimlere bölünmüştür.  
+- **Esneklik**: Nesne oluşturma ve iş akışları kolayca genişletilebilir.  
+- **Bakım Kolaylığı**: Kodun anlaşılması ve güncellenmesi daha kolay hale getirilmiştir.  
+
+## Kullanım  
+Proje, aşağıdaki adımları izleyerek çalıştırılabilir:  
 
 ## Kullanılan Teknolojiler
 - **Java Versiyonu:** `17.0.7`
