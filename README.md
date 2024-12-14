@@ -107,6 +107,16 @@ Bu kurulum, uygulama içerisindeki rol tabanlı erişim kontrolü için gereklid
 
 
 
+## Frontend Bağlantısı
 
+Projenin frontend uygulamasına aşağıdaki bağlantıdan erişebilirsiniz:
+
+[Frontend Uygulaması](https://github.com/SalihCanAydogdu/otopark-yonetimi)
+
+## İletişim
+
+Herhangi bir sorunuz veya işbirliği teklifiniz varsa, bana aşağıdaki e-posta adresinden ulaşabilirsiniz:
+
+📧 **E-posta**: [salih.can@aydogdutech.com](mailto:salih.can@aydogdutech.com)
 
 
