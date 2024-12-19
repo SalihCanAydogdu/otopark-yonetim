@@ -3,6 +3,8 @@
 ## Proje Hakkında  
 Bu proje, yazılım tasarım desenlerini kullanarak modüler, esnek ve yeniden kullanılabilir bir mimari oluşturmayı amaçlamaktadır. Yazılım geliştirme sürecinde yaygın olarak kullanılan **Singleton**, **Factory Method**, **Builder**, **State** ve **DTO** tasarım desenleri, proje kapsamındaki ana bileşenlerde etkili bir şekilde uygulanmıştır.  
 
+Projenin tanıtımını izlemek için [bu videoya](https://drive.google.com/file/d/1oQSzsOVp0QdWwiGgwgChGaO9lW3DSpoU/view?usp=drive_link), projede kullanılan design patternler ve mimari hakkında bilgi için [bu videoya](https://drive.google.com/file/d/1LJnEJcdSKx9cEjWuWWP39jInOu4HrlT7/view?usp=drive_link) ulaşabilirsiniz.
+
 ## Kullanılan Tasarım Desenleri  
 
 ### 1. **Singleton Design Pattern**  
