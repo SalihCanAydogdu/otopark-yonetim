@@ -48,9 +48,7 @@ public abstract class AracService {
 
 		arac.setCikisSaati(LocalDateTime.now());
 
-		Arac savedArac = aracRepository.save(arac);
-
-		return aracRepository.save(savedArac);
+		return aracRepository.save(arac);
 	}
 
 	public double hesaplaDakikaFarki(LocalDateTime girisTarihi, LocalDateTime cikisTarihi) {

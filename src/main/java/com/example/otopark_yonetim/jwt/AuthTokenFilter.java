@@ -21,47 +21,47 @@ import jakarta.servlet.http.Cookie;
 @Component
 public class AuthTokenFilter extends OncePerRequestFilter {
 
-    @Autowired
-    private JwtUtils jwtUtils;
+	@Autowired
+	private JwtUtils jwtUtils;
 
-    @Autowired
-    private UserDetailsServiceImpl userDetailsService;
+	@Autowired
+	private UserDetailsServiceImpl userDetailsService;
 
-    @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-            throws ServletException, IOException {
+	@Override
+	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+			throws ServletException, IOException {
 
-        try {
-        	// Get JWT from cookie
-            Cookie[] cookies = request.getCookies();
-            String jwt = null;
+		try {
+			// Get JWT from cookie
+			Cookie[] cookies = request.getCookies();
+			String jwt = null;
 
-            if (cookies != null) {
-                for (Cookie cookie : cookies) {
-                    if ("jwt".equals(cookie.getName())) {
-                        jwt = cookie.getValue();
-                        break;
-                    }
-                }
-            }
+			if (cookies != null) {
+				for (Cookie cookie : cookies) {
+					if ("jwt".equals(cookie.getName())) {
+						jwt = cookie.getValue();
+						break;
+					}
+				}
+			}
 
-            // Current device information (User-Agent)
-            String currentDeviceInfo = request.getHeader("User-Agent");
+			// Current device information (User-Agent)
+			String currentDeviceInfo = request.getHeader("User-Agent");
 
-            if (jwt != null && jwtUtils.validateJwtToken(jwt, currentDeviceInfo)) {
-                String username = jwtUtils.getUserNameFromJwtToken(jwt);
+			if (jwt != null && jwtUtils.validateJwtToken(jwt, currentDeviceInfo)) {
+				String username = jwtUtils.getUserNameFromJwtToken(jwt);
 
-                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-                UsernamePasswordAuthenticationToken authentication =
-                        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+				UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+				UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+						userDetails, null, userDetails.getAuthorities());
+				authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-            }
-        } catch (Exception e) {
-            logger.error("Cannot set user authentication: {}", e);
-        }
+				SecurityContextHolder.getContext().setAuthentication(authentication);
+			}
+		} catch (Exception e) {
+			logger.error("Cannot set user authentication: {}", e);
+		}
 
-        filterChain.doFilter(request, response);
-    }
+		filterChain.doFilter(request, response);
+	}
 }
