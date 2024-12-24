@@ -19,7 +19,6 @@ import com.example.otopark_yonetim.entities.Arac;
 import com.example.otopark_yonetim.repositories.AracRepository;
 import com.example.otopark_yonetim_responses.AracResponse;
 
-@SpringBootTest
 class AracServiceTest {
 
 	@Mock
